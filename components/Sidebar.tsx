@@ -1,47 +1,71 @@
+"use client";
+import {
+  BookText,
+  Coins,
+  Globe,
+  LayoutDashboard,
+  Settings,
+  Wallet,
+} from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import React from "react";
 
 const links = [
   {
-    icon: "/globe.svg",
+    icon: <Globe />,
     name: "Get Started",
+    url: "/Get-started",
   },
   {
-    icon: "/element-1.svg",
+    icon: <LayoutDashboard />,
     name: "Dashboard",
+    url: "/Dashboard",
   },
   {
-    icon: "/empty-wallet.svg",
+    icon: <Wallet />,
     name: "Accounts",
+    url: "/Accounts",
   },
   {
-    icon: "/coins-swap.svg",
+    icon: <Coins />,
     name: "Transfers",
+    url: "/Transfers",
   },
   {
-    icon: "/document.svg",
+    icon: <BookText />,
     name: "Transactions",
+    url: "/Transactions",
   },
   {
-    icon: "/setting-2.svg",
+    icon: <Settings />,
     name: "Settings",
+    url: "/Settings",
   },
 ];
 
 const Sidebar = () => {
+  const pathname = usePathname();
   return (
-    <div className="w-[263px] border-gray-300 border border-r-[1px] flex flex-col pl-10">
-      {links.map((link, i) => (
-        <div className="flex items-center justify-center h-[52px]">
-          <Image
-            src={link.icon}
-            height={24}
-            width={24}
-            alt="bell"
-            className="text-white"
-          />
-        </div>
-      ))}
+    <div className="w-[263px] border-gray-300 border h-[100vh] border-r-[1px] flex flex-col  pt-10">
+      {links.map((link, i) => {
+        const isActive = pathname === link.url;
+        return (
+          <Link key={i} href={link.url}>
+            <div
+              className={`flex items-center gap-3 h-[52px] px-3 pl-10 w-full cursor-pointer transition-colors ${
+                isActive
+                  ? "bg-blue-500 text-white"
+                  : "hover:bg-blue-100 text-gray-800"
+              }`}
+            >
+              {link.icon}
+              <p className="text-[15px]">{link.name}</p>
+            </div>
+          </Link>
+        );
+      })}
     </div>
   );
 };
