@@ -48,7 +48,7 @@ const links = [
 const Sidebar = () => {
   const pathname = usePathname();
   return (
-    <div className="w-[18%] border-gray-300 border h-[100vh] border-r-[1px] flex flex-col  pt-10">
+    <div className="w-[18%] border-gray-300  h-[100vh] border-r-[1px] flex flex-col  pt-10">
       {links.map((link, i) => {
         const isActive = pathname === link.url;
         return (
