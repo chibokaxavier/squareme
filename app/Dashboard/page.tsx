@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Select,
   SelectContent,
@@ -21,11 +21,35 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
-import { data } from "@/utils/constants";
+
+import axios from "axios";
+import { AppDispatch, RootState } from "@/Redux/store";
+import { useDispatch, useSelector } from "react-redux";
+import { setIncomeData } from "@/Redux/slices/endpointSlice";
 
 const page = () => {
   const [copied, setCopied] = useState(false);
   const [selectedRange, setSelectedRange] = useState("today");
+  const dispatch = useDispatch<AppDispatch>();
+  const incomeData = useSelector((state: RootState) => state.income.data);
+
+  type IncomeData = {
+    name: string;
+    income: number;
+  }[];
+
+  useEffect(() => {
+    const fetchIncome = async () => {
+      try {
+        const res = await axios.get(`/api/income?range=${selectedRange}`);
+        dispatch(setIncomeData(res.data));
+      } catch (error) {
+        console.error("Error fetching income:", error);
+      }
+    };
+
+    fetchIncome();
+  }, [dispatch, selectedRange]);
 
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
@@ -122,7 +146,7 @@ const page = () => {
               </span>{" "}
               <span className="font-light text-[14px] ">vs Last 7 days</span>
             </p>
-            <p className="mt-3 flex items-center gap-2">
+            <p className="mt-3 mb-5 flex items-center gap-2">
               <span className="font-bold text-[29px]">₦0.00 </span>{" "}
               <span className="font-normal text-[14px]  ">in total value</span>
             </p>
@@ -131,7 +155,7 @@ const page = () => {
               <BarChart
                 width={500}
                 height={300}
-                data={data}
+                data={incomeData}
                 margin={{
                   top: 5,
                   right: 30,
