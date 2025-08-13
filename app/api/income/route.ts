@@ -6,6 +6,8 @@ type IncomeData = {
   income: number;
 }[];
 
+
+
 export async function GET(req: NextRequest) {
   const range = req.nextUrl.searchParams.get("range");
 
@@ -172,6 +174,8 @@ export async function GET(req: NextRequest) {
 
       break;
   }
+
+
 
   return NextResponse.json(data);
 }
