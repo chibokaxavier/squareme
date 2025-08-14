@@ -1,20 +1,20 @@
-// // middleware.ts
-// import { NextResponse } from "next/server";
-// import type { NextRequest } from "next/server";
+// middleware.ts
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
 
-// export function middleware(req: NextRequest) {
-//   const { pathname } = req.nextUrl;
+export function middleware(req: NextRequest) {
+  const { pathname } = req.nextUrl;
 
-//   // Redirect from root to /dashboard
-//   if (pathname === "/") {
-//     const url = req.nextUrl.clone();
-//     url.pathname = "/Dashboard";
-//     return NextResponse.redirect(url);
-//   }
+  // Redirect from root to /dashboard
+  if (pathname === "/") {
+    const url = req.nextUrl.clone();
+    url.pathname = "/Dashboard";
+    return NextResponse.redirect(url);
+  }
 
-//   return NextResponse.next();
-// }
+  return NextResponse.next();
+}
 
-// export const config = {
-//   matcher: ["/"], // Only run middleware for the root path
-// };
+export const config = {
+  matcher: ["/"], // Only run middleware for the root path
+};
