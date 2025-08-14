@@ -117,7 +117,7 @@ const Page = () => {
           </div>
 
           <div className="bg-white rounded-lg text-[14px] text-[#535379]">
-            <p className="font-semibold text-[17px] text-black">Transactions</p>
+            <p className="font-semibold block lg:hidden text-[17px] text-black">Transactions</p>
             {currentRows.map((invoice, i) => (
               <div
                 key={i}
