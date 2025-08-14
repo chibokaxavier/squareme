@@ -88,19 +88,18 @@ const page = () => {
           </div>
           {copied && <p className="text-black text-[11px] ">Copied!</p>}
         </div>
-        <p className="text-[11px] font-medium py-1 lg:hidden">OGEDENGBE FRUITS STORE</p>
+        <p className="text-[11px] font-medium py-1 lg:hidden">
+          OGEDENGBE FRUITS STORE
+        </p>
       </div>
 
       <div className="flex items-center justify-center mx-auto mt-10">
         <div className="w-[90%] border-gray-300 rounded-[10px]  border-[2px] lg:px-5 py-5  ">
-          <div className="lg:flex hidden ">
-            <div className="flex justify-between lg:justify-normal items-center gap-5 ">
+          <div className="lg:flex hidden justify-between ">
+            <div className="flex  items-center gap-5 ">
               <p className="font-semibold hidden lg:block text-[14px] text-[#71717A]">
                 Showing data for{" "}
               </p>{" "}
-              <p className="font-semibold pl-5 lg:hidden  text-[14px] ">
-                Revenue
-              </p>
               <Select
                 defaultValue="today"
                 onValueChange={(value) => setSelectedRange(value)}
