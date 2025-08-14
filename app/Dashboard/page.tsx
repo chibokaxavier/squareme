@@ -57,21 +57,21 @@ const page = () => {
     setTimeout(() => setCopied(false), 2000); // Reset after 2 seconds
   };
   return (
-    <div className="bg-[#E6EAEE] w-[82vw] pb-20">
+    <div className="bg-white lg:bg-[#E6EAEE] w-[100vw] lg:w-[82vw] pb-20">
       <div className="border-gray-300  border-b-[2px]  w-[100%] ">
         {" "}
-        <p className="border-b-[#3976E8] font-semibold text-[16px] w-fit pt-[50px] ml-24 pb-5  border-b-[2px]">
+        <p className="border-b-[#3976E8] font-semibold text-[16px] w-fit pt-[25px] lg:pt-[50px] ml-5 lg:ml-[70px] pb-5  border-b-[2px]">
           Online Payments
         </p>
       </div>
 
-      <div className="bg-white w-[325px] h-[115px] ml-24 rounded-md mt-10 border-gray-300 border-[1px] pt-4 px-5">
+      <div className="bg-white w-[90%] mx-auto  lg:w-[325px] h-[115px] lg:ml-16 rounded-md mt-10 border-gray-300 border-[1px] lg:pt-5 pt-2 px-5">
         <p className="font-medium text-[11px] text-[#8F8E8E]">
           ACCOUNT DETAILS
         </p>
-        <p className="font-medium text-[11px] pt-2">STERLING BANK</p>
+        <p className="font-medium text-[11px] lg:pt-2 pt-1">STERLING BANK</p>
         <div className="flex justify-between items-center">
-          <p className="font-bold text-[21px] pt-2">8000000000</p>
+          <p className="font-bold text-[21px] lg:pt-2 pt-1">8000000000</p>
           <div
             onClick={() => copyToClipboard("8000000000")}
             className="w-[70px] gap-2 flex items-center justify-center cursor-pointer text-[#9F56D4] h-[28px] rounded-[8px] bg-[#9F56D433]"
@@ -88,15 +88,19 @@ const page = () => {
           </div>
           {copied && <p className="text-black text-[11px] ">Copied!</p>}
         </div>
+        <p className="text-[11px] font-medium py-1 lg:hidden">OGEDENGBE FRUITS STORE</p>
       </div>
 
       <div className="flex items-center justify-center mx-auto mt-10">
-        <div className="w-[85%] border-gray-300 rounded-[10px]  border-[2px] px-5 py-5  ">
-          <div className="flex justify-between">
-            <div className="flex items-center gap-5 ">
-              <p className="font-semibold text-[14px] text-[#71717A]">
+        <div className="w-[90%] border-gray-300 rounded-[10px]  border-[2px] lg:px-5 py-5  ">
+          <div className="lg:flex hidden ">
+            <div className="flex justify-between lg:justify-normal items-center gap-5 ">
+              <p className="font-semibold hidden lg:block text-[14px] text-[#71717A]">
                 Showing data for{" "}
               </p>{" "}
+              <p className="font-semibold pl-5 lg:hidden  text-[14px] ">
+                Revenue
+              </p>
               <Select
                 defaultValue="today"
                 onValueChange={(value) => setSelectedRange(value)}
@@ -114,7 +118,7 @@ const page = () => {
               </Select>
             </div>
 
-            <div className="flex items-center justify-center text-black gap-2 text-black">
+            <div className="hidden lg:flex items-center justify-center text-black gap-2 text-black">
               <p
                 className={`px-3 py-1 rounded ${
                   selectedRange === "today" ? "bg-[#00C6FB0F] " : ""
@@ -138,15 +142,33 @@ const page = () => {
               </p>
             </div>
           </div>
-          <div className="w-[100%] mt-5 bg-white border-gray-300 rounded-[6px]  border-[2px] px-5 py-5 ">
-            <p>
+          <div className="lg:hidden flex justify-between px-5 items-center  ">
+            <p className="  text-[14px] ">Revenue</p>
+            <Select
+              defaultValue="today"
+              onValueChange={(value) => setSelectedRange(value)}
+            >
+              <SelectTrigger className="w-[134px] text-[14px] font-semibold text-[#71717A] bg-white rounded-[8px] h-[42px] border-[2px] focus:border-0 focus:ring-0 focus:outline-none  focus:ring-gray-300 border-gray-300">
+                <SelectValue placeholder="Select a fruit" />
+              </SelectTrigger>
+              <SelectContent className="border bg-white text-[14px] font-semibold text-[#71717A] border-gray-300">
+                <SelectGroup>
+                  <SelectItem value="today">Today</SelectItem>
+                  <SelectItem value="last7days">Last 7 Days</SelectItem>
+                  <SelectItem value="last30days">Last 30 Days</SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          </div>
+          <div className=" w-[100%] mt-5 bg-white lg:border-gray-300 rounded-[6px]  lg:border-[2px] lg:px-5 py-5 ">
+            <p className="hidden lg:block">
               <span className="font-bold text-[14px]">Revenue </span>{" "}
               <span className="font-light text-[14px] text-[#6DC27F]">
                 +0.00%
               </span>{" "}
               <span className="font-light text-[14px] ">vs Last 7 days</span>
             </p>
-            <p className="mt-3 mb-5 flex items-center gap-2">
+            <p className="mt-3 mb-5  items-center hidden lg:flex gap-2">
               <span className="font-bold text-[29px]">₦0.00 </span>{" "}
               <span className="font-normal text-[14px]  ">in total value</span>
             </p>

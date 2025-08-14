@@ -7,6 +7,8 @@ import Sidebar from "@/components/Sidebar";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistor, store } from "@/Redux/store";
+import { PrimeReactProvider } from "primereact/api";
+import "primereact/resources/themes/lara-light-cyan/theme.css";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -24,11 +26,13 @@ export default function RootLayout({
       <body className={`${inter.variable} antialiased`}>
         <Provider store={store}>
           <PersistGate loading={null} persistor={persistor}>
-            <Header />
-            <div className="flex">
-              <Sidebar />
-              {children}
-            </div>
+            <PrimeReactProvider>
+              <Header />
+              <div className="flex">
+                <Sidebar />
+                {children}
+              </div>
+            </PrimeReactProvider>
           </PersistGate>
         </Provider>
       </body>

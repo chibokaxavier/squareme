@@ -12,7 +12,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
 
-const links = [
+export const links = [
   {
     icon: <Globe />,
     name: "Get Started",
@@ -48,7 +48,7 @@ const links = [
 const Sidebar = () => {
   const pathname = usePathname();
   return (
-    <div className="w-[18%] border-gray-300  h-[100vh] border-r-[1px] flex flex-col  pt-10">
+    <div className="w-[18%] border-gray-300  h-[100vh] border-r-[1px] lg:flex flex-col  pt-10  hidden">
       {links.map((link, i) => {
         const isActive = pathname === link.url;
         return (

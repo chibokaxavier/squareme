@@ -13,7 +13,12 @@ import axios from "axios";
 import { AppDispatch, RootState } from "@/Redux/store";
 import { useDispatch, useSelector } from "react-redux";
 import { setInvoiceData } from "@/Redux/slices/endpointSlice";
-import { CalendarDays, CloudUpload } from "lucide-react";
+import {
+  CalendarDays,
+  ChevronLeft,
+  ChevronRight,
+  CloudUpload,
+} from "lucide-react";
 
 const invoices = [
   {
@@ -166,7 +171,10 @@ const page = () => {
           {/* Table Header */}
           <div className="grid grid-cols-7  uppercase text-[#84919A] font-semibold text-[12px] py-2  font-semibold">
             <div className="pl-12">
-              <input type="checkbox" name="" id="" className="size-[16px] " />
+              <input
+                type="checkbox"
+                className="appearance-none size-[16px] border border-gray-300 rounded-sm bg-gray-100  checked:border-blue-500"
+              />
             </div>
             <div>Amount</div>
             <div>Transaction ID</div>
@@ -183,9 +191,7 @@ const page = () => {
                 <div className="pl-12">
                   <input
                     type="checkbox"
-                    name=""
-                    id=""
-                    className="size-[16px] border-[1px] border-gray-300"
+                    className="appearance-none size-[16px] border border-gray-300 rounded-sm bg-gray-100 checked:border-blue-500"
                   />
                 </div>
                 <div className="text-black">{invoice.Amount}</div>
@@ -220,7 +226,7 @@ const page = () => {
 
           <div className="flex justify-between items-center mt-6">
             {/* Left side */}
-            <div className="text-gray-600 text-sm">
+            <div className="text-[#696D8C] text-[14px]">
               Showing {Math.min(currentPage * rowsPerPage, invoiceData.length)}{" "}
               of {invoiceData.length} results
             </div>
@@ -231,9 +237,9 @@ const page = () => {
               <button
                 onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
                 disabled={currentPage === 1}
-                className="flex items-center justify-center w-8 h-8 border rounded hover:bg-gray-100 disabled:opacity-50"
+                className="flex items-center cursor-pointer justify-center w-8 h-8 border rounded hover:bg-gray-100 disabled:opacity-50"
               >
-                &larr;
+                <ChevronLeft />
               </button>
 
               {/* Page boxes */}
@@ -244,7 +250,7 @@ const page = () => {
                   className={`w-8 h-8 border rounded flex items-center justify-center text-sm
           ${
             pageNum === currentPage
-              ? "border-blue-500 font-semibold"
+              ? "border-blue-500 text-blue-500 font-semibold"
               : "border-gray-300 hover:bg-gray-100"
           }`}
                 >
@@ -252,18 +258,6 @@ const page = () => {
                 </button>
               ))}
 
-              {/* Next */}
-              <button
-                onClick={() =>
-                  setCurrentPage((p) => Math.min(totalPages, p + 1))
-                }
-                disabled={currentPage === totalPages}
-                className="flex items-center justify-center w-8 h-8 border rounded hover:bg-gray-100 disabled:opacity-50"
-              >
-                &rarr;
-              </button>
-
-              {/* Last */}
               <button
                 onClick={() => setCurrentPage(totalPages)}
                 disabled={currentPage === totalPages}
@@ -271,6 +265,19 @@ const page = () => {
               >
                 &raquo;
               </button>
+
+              {/* Next */}
+              <button
+                onClick={() =>
+                  setCurrentPage((p) => Math.min(totalPages, p + 1))
+                }
+                disabled={currentPage === totalPages}
+                className="flex items-center cursor-pointer justify-center w-8 h-8 border rounded hover:bg-gray-100 disabled:opacity-50"
+              >
+                <ChevronRight />
+              </button>
+
+              {/* Last */}
             </div>
           </div>
         </div>
