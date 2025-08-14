@@ -1,5 +1,4 @@
 "use client";
-import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import {
   Select,
@@ -20,70 +19,10 @@ import {
   CloudUpload,
 } from "lucide-react";
 
-const invoices = [
-  {
-    Amount: "₦43,644",
-    TransactionId: "TR_8401857902",
-    TransactionType: "Transfer",
-    Date: "Feb 12, 2022",
-    Time: "10:30am",
-    Status: "Processed",
-  },
-  {
-    Amount: "₦43,644",
-    TransactionId: "TR_8401857902",
-    TransactionType: "Withdrawal",
-    Date: "Feb 12, 2022",
-    Time: "10:30am",
-    Status: "Processed",
-  },
-  {
-    Amount: "₦43,644",
-    TransactionId: "TR_8401857902",
-    TransactionType: "Deposit",
-    Date: "Feb 12, 2022",
-    Time: "10:30am",
-    Status: "Processed",
-  },
-  {
-    Amount: "₦43,644",
-    TransactionId: "TR_8401857902",
-    TransactionType: "Request",
-    Date: "Feb 12, 2022",
-    Time: "10:30am",
-    Status: "Failed",
-  },
-  {
-    Amount: "₦43,644",
-    TransactionId: "TR_8401857902",
-    TransactionType: "Withdrawal",
-    Date: "Feb 12, 2022",
-    Time: "10:30am",
-    Status: "Failed",
-  },
-  {
-    Amount: "₦43,644",
-    TransactionId: "TR_8401857902",
-    TransactionType: "Request",
-    Date: "Feb 12, 2022",
-    Time: "10:30am",
-    Status: "Processed",
-  },
-  {
-    Amount: "₦43,644",
-    TransactionId: "TR_8401857902",
-    TransactionType: "Deposit",
-    Date: "Feb 12, 2022",
-    Time: "10:30am",
-    Status: "Failed",
-  },
-];
-
-const page = () => {
-  const [selectedRange, setSelectedRange] = useState("Allacount");
+const Page = () => {
   const dispatch = useDispatch<AppDispatch>();
   const [currentPage, setCurrentPage] = useState(1);
-  const rowsPerPage = 10; // how many rows per page
+  const rowsPerPage = 10; 
   const invoiceData = useSelector(
     (state: RootState) => state.income.invoiceData
   );
@@ -92,14 +31,6 @@ const page = () => {
   const indexOfLastRow = currentPage * rowsPerPage;
   const indexOfFirstRow = indexOfLastRow - rowsPerPage;
   const currentRows = invoiceData.slice(indexOfFirstRow, indexOfLastRow);
-
-  const goToNextPage = () => {
-    if (currentPage < totalPages) setCurrentPage((prev) => prev + 1);
-  };
-
-  const goToPrevPage = () => {
-    if (currentPage > 1) setCurrentPage((prev) => prev - 1);
-  };
 
   const getVisiblePages = () => {
     if (totalPages <= 3)
@@ -127,36 +58,38 @@ const page = () => {
   }, []);
 
   return (
-    <div className="bg-[#E6EAEE] w-[82vw] pb-20">
-      <div className="border-gray-300 flex justify-between items-center border-b-[2px] pl-[50px] pr-10 pt-10 pb-5  w-[100%] ">
-        {" "}
-        <Select
-          defaultValue="today"
-          onValueChange={(value) => setSelectedRange(value)}
-        >
-          <SelectTrigger className="w-[164px] text-[16px]   font-medium text-black  h-[42px] border-0 focus:border-0 focus:ring-0 focus:outline-none  focus:ring-transparent ">
-            <SelectValue placeholder="Select a fruit" />
-          </SelectTrigger>
-          <SelectContent className="border bg-white text-[14px] font-semibold text-[#71717A] border-gray-300">
-            <SelectGroup>
-              <SelectItem value="today">All Accounts</SelectItem>
-            </SelectGroup>
-          </SelectContent>
-        </Select>
-        <div className="flex items-center gap-4 ">
-          {/* Label */}
-          <p className="font-medium text-[#71717A] text-[16px]">
-            Select Date Range:
-          </p>
+    <div className="bg-white lg:bg-[#E6EAEE] w-[100vw] lg:w-[82vw] px-5 lg:px-0 pb-20">
+      <div className="border-gray-300 border-b-[2px] pt-10 pb-5 lg:pl-[50px] lg:pr-10 lg:flex lg:justify-between lg:items-center">
+        <div className="w-full justify-between   flex lg:w-auto mb-4 lg:mb-0">
+          <Select defaultValue="today">
+            <SelectTrigger className="w-[164px] text-[16px] font-medium text-black h-[42px] border-0 focus:border-0 focus:ring-0 focus:outline-none focus:ring-transparent">
+              <SelectValue placeholder="Select a fruit" />
+            </SelectTrigger>
+            <SelectContent className="border bg-white text-[14px] font-semibold text-[#71717A] border-gray-300">
+              <SelectGroup>
+                <SelectItem value="today">All Accounts</SelectItem>
+              </SelectGroup>
+            </SelectContent>
+          </Select>
 
-          {/* Date Range Box */}
-          <div className="flex items-center text-[#71717A] text-[16px] bg-white border-gray-300 gap-2 border rounded-[8px] px-3 py-2 cursor-pointer ">
-            <CalendarDays className="w-4 h-4 text-gray-500" />
-            <span className="text-[#71717A]">Jan 1, 2025 - Aug 13, 2025</span>
+          <div className="border flex lg:hidden items-center gap-2 rounded-[8px] px-4 py-2 text-[#344054] border-gray-300 text-[14px] cursor-pointer bg-white">
+            <CloudUpload className="w-5 h-5 text-[#344054]" />
+            Export
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:gap-6 w-full lg:w-auto">
+          <div className="flex items-center justify-between gap-4">
+            <p className="font-medium text-[#71717A] text-[13px] lg:text-[16px]">
+              Select Date Range:
+            </p>
+            <div className="flex items-center text-[#71717A] text-[12px] lg:text-[16px] bg-white border-gray-300 gap-2 border rounded-[8px] px-3 py-2 cursor-pointer">
+              <CalendarDays className="w-4 h-4 text-gray-500" />
+              <span className="text-[#71717A]">Jan 1, 2025 - Aug 13, 2025</span>
+            </div>
           </div>
 
-          {/* Export Box */}
-          <div className="border flex items-center gap-2 rounded-[8px] px-4 py-2 text-[#344054] border-gray-300 text-[14px] cursor-pointer bg-white">
+          <div className="border hidden lg:flex items-center gap-2 rounded-[8px] px-4 py-2 text-[#344054] border-gray-300 text-[14px] cursor-pointer bg-white">
             <CloudUpload className="w-5 h-5 text-[#344054]" />
             Export
           </div>
@@ -167,13 +100,12 @@ const page = () => {
         <div className="flex justify-between">
           <div className="flex items-center gap-5 "></div>
         </div>
-        <div className="space-y-2 w-[96%]">
-          {/* Table Header */}
-          <div className="grid grid-cols-7  uppercase text-[#84919A] font-semibold text-[12px] py-2  font-semibold">
+        <div className="space-y-2 w-[100%] lg:w-[96%]">
+          <div className="hidden lg:grid grid-cols-7 uppercase text-[#84919A] font-semibold text-[12px] py-2">
             <div className="pl-12">
               <input
                 type="checkbox"
-                className="appearance-none size-[16px] border border-gray-300 rounded-sm bg-gray-100  checked:border-blue-500"
+                className="appearance-none size-[16px] border border-gray-300 rounded-sm bg-gray-100 checked:border-blue-500"
               />
             </div>
             <div>Amount</div>
@@ -184,37 +116,75 @@ const page = () => {
             <div>Status</div>
           </div>
 
-          {/* Table Body */}
-          <div className="bg-white rounded-lg text-[14px] text-[#535379] ">
+          <div className="bg-white rounded-lg text-[14px] text-[#535379]">
+            <p className="font-semibold text-[17px] text-black">Transactions</p>
             {currentRows.map((invoice, i) => (
-              <div className="grid grid-cols-7  py-5 border-b border-gray-200">
-                <div className="pl-12">
+              <div
+                key={i}
+                className="border-2 lg:border-b px-5 lg:px-0 rounded-md lg:rounded-none lg:my-0 my-10 w-full lg:w-auto border-gray-200 py-5 grid gap-y-4 lg:grid-cols-7 lg:gap-y-0 lg:items-center"
+              >
+                <div className="pl-4 lg:pl-12">
                   <input
                     type="checkbox"
-                    className="appearance-none size-[16px] border border-gray-300 rounded-sm bg-gray-100 checked:border-blue-500"
+                    className="appearance-none hidden lg:block size-[16px] border border-gray-300 rounded-sm bg-gray-100 checked:border-blue-500"
                   />
                 </div>
-                <div className="text-black">{invoice.Amount}</div>
-                <div>{invoice.TransactionId}</div>
-                <div>{invoice.TransactionType}</div>
-                <div className="">{invoice.Date}</div>
-                <div className="">{invoice.Time}</div>
-                <div>
+
+                <div className="hidden lg:block">{invoice.Amount}</div>
+
+                <div className="block lg:hidden border-b border-gray-200 pb-2 flex justify-between">
+                  <span className="text-gray-500 font-semibold">Amount:</span>
+                  <span>{invoice.Amount}</span>
+                </div>
+
+                <div className="block lg:hidden border-b border-gray-200 pb-2 flex justify-between">
+                  <span className="text-gray-500 font-semibold">
+                    Transaction Type:
+                  </span>
+                  <span className="uppercase">{invoice.TransactionType}</span>
+                </div>
+
+                <div className="hidden lg:block">{invoice.TransactionId}</div>
+
+                <div className="block lg:hidden border-b border-gray-200 pb-2 flex justify-between">
+                  <span className="text-gray-500 font-semibold">Date</span>
+                  <span>
+                    {invoice.Date} {invoice.Time}
+                  </span>
+                </div>
+                <div className="hidden lg:block">{invoice.TransactionType}</div>
+
+                <div className="hidden lg:block">{invoice.Date}</div>
+
+                <div className="hidden lg:block">{invoice.Time}</div>
+
+                <div className="block lg:hidden border-b border-gray-200 pb-2 flex justify-between">
+                  <span className="text-gray-500 font-semibold">Status</span>
+                  <div className="">
+                    {invoice.Status === "Processed" && (
+                      <div className="flex items-center gap-2 rounded-full border px-3 w-fit py-1 border-[#5DC090] bg-green-100 text-[#144909]">
+                        <span className="w-2 h-2 rounded-full bg-[#92EF80]" />
+                        {invoice.Status}
+                      </div>
+                    )}
+                    {invoice.Status === "Failed" && (
+                      <div className="flex items-center gap-2 rounded-full w-fit min-w-[106px] justify-center border px-3 py-1 border-[#F14156] bg-red-100 text-[#740613]">
+                        <span className="w-2 h-2 rounded-full bg-[#F14156]" />
+                        {invoice.Status}
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                <div className="hidden lg:block">
                   {invoice.Status === "Processed" && (
-                    <div
-                      className={`flex items-center gap-2 rounded-full border px-3 w-fit py-1 
-                  border-[#5DC090] bg-green-100 text-[#144909]`}
-                    >
+                    <div className="flex items-center gap-2 rounded-full border px-3 w-fit py-1 border-[#5DC090] bg-green-100 text-[#144909]">
                       <span className="w-2 h-2 rounded-full bg-[#92EF80]" />
                       {invoice.Status}
                     </div>
                   )}
-
                   {invoice.Status === "Failed" && (
-                    <div
-                      className={`flex items-center gap-2 rounded-full w-fit min-w-[106px] justify-center border px-3 py-1 
-                  border-[#F14156] bg-red-100 text-[#740613]`}
-                    >
+                    <div className="flex items-center gap-2 rounded-full w-fit min-w-[106px] justify-center border px-3 py-1 border-[#F14156] bg-red-100 text-[#740613]">
                       <span className="w-2 h-2 rounded-full bg-[#F14156]" />
                       {invoice.Status}
                     </div>
@@ -225,15 +195,12 @@ const page = () => {
           </div>
 
           <div className="flex justify-between items-center mt-6">
-            {/* Left side */}
             <div className="text-[#696D8C] text-[14px]">
               Showing {Math.min(currentPage * rowsPerPage, invoiceData.length)}{" "}
               of {invoiceData.length} results
             </div>
 
-            {/* Right side */}
             <div className="flex items-center gap-2">
-              {/* Previous */}
               <button
                 onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
                 disabled={currentPage === 1}
@@ -242,17 +209,16 @@ const page = () => {
                 <ChevronLeft />
               </button>
 
-              {/* Page boxes */}
               {visiblePages.map((pageNum) => (
                 <button
                   key={pageNum}
                   onClick={() => setCurrentPage(pageNum)}
                   className={`w-8 h-8 border rounded flex items-center justify-center text-sm
-          ${
-            pageNum === currentPage
-              ? "border-blue-500 text-blue-500 font-semibold"
-              : "border-gray-300 hover:bg-gray-100"
-          }`}
+            ${
+              pageNum === currentPage
+                ? "border-blue-500 text-blue-500 font-semibold"
+                : "border-gray-300 hover:bg-gray-100"
+            }`}
                 >
                   {pageNum}
                 </button>
@@ -266,7 +232,6 @@ const page = () => {
                 &raquo;
               </button>
 
-              {/* Next */}
               <button
                 onClick={() =>
                   setCurrentPage((p) => Math.min(totalPages, p + 1))
@@ -276,8 +241,6 @@ const page = () => {
               >
                 <ChevronRight />
               </button>
-
-              {/* Last */}
             </div>
           </div>
         </div>
@@ -286,4 +249,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

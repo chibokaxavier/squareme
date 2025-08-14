@@ -27,16 +27,12 @@ import { AppDispatch, RootState } from "@/Redux/store";
 import { useDispatch, useSelector } from "react-redux";
 import { setIncomeData } from "@/Redux/slices/endpointSlice";
 
-const page = () => {
+const Page = () => {
   const [copied, setCopied] = useState(false);
   const [selectedRange, setSelectedRange] = useState("today");
   const dispatch = useDispatch<AppDispatch>();
   const incomeData = useSelector((state: RootState) => state.income.data);
 
-  type IncomeData = {
-    name: string;
-    income: number;
-  }[];
 
   useEffect(() => {
     const fetchIncome = async () => {
@@ -54,7 +50,7 @@ const page = () => {
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
     setCopied(true);
-    setTimeout(() => setCopied(false), 2000); // Reset after 2 seconds
+    setTimeout(() => setCopied(false), 2000); 
   };
   return (
     <div className="bg-white lg:bg-[#E6EAEE] w-[100vw] lg:w-[82vw] pb-20">
@@ -215,4 +211,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
