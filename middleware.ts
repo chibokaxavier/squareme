@@ -8,7 +8,7 @@ export function middleware(req: NextRequest) {
   // Redirect from root to /dashboard
   if (pathname === "/") {
     const url = req.nextUrl.clone();
-    url.pathname = "/dashboard";
+    url.pathname = "/Dashboard";
     return NextResponse.redirect(url);
   }
 
